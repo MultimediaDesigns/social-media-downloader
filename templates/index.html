@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Video Downloader</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Social Media Video Downloader</h1>
+        <form action="/download" method="POST">
+            <input type="text" name="url" placeholder="Enter video URL" required>
+            <select name="platform" required>
+                <option value="youtube">YouTube</option>
+                <option value="instagram">Instagram</option>
+            </select>
+            <button type="submit">Download</button>
+        </form>
+    </div>
+</body>
+</html>
