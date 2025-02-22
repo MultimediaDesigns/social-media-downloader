@@ -13,6 +13,11 @@ def download_youtube_video(url):
     ydl_opts = {
         'format': 'best[ext=mp4]',  # Download the best single-stream MP4 video
         'outtmpl': 'downloads/%(title)s.%(ext)s',  # Save the video with its title as the filename
+        'extractor_args': {
+            'youtube': {
+                'skip': ['dash', 'hls'],  # Skip DASH and HLS formats
+            },
+        },
     }
     with YoutubeDL(ydl_opts) as ydl:
         info_dict = ydl.extract_info(url, download=True)
@@ -33,6 +38,8 @@ def download():
     elif platform == 'instagram':
         try:
             L = instaloader.Instaloader()
+            # Load session cookies for Instagram authentication
+            L.load_session_from_file('your_instagram_username', 'cookies.txt')
             post = instaloader.Post.from_shortcode(L.context, url.split('/')[-2])
             L.download_post(post, target='downloads')
             return send_file(f'downloads/{post.date_utc.strftime("%Y-%m-%d_%H-%M-%S")}_UTC.mp4', as_attachment=True)
